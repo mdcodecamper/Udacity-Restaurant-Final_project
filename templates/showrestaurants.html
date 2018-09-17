@@ -1,0 +1,93 @@
+{% extends "base_others.html" %}	
+
+{% block title %}
+Show Restaurant
+{% endblock %}
+
+{% block banner %}
+	<!-- start banner Area -->
+	<section class="about-banner relative">
+			<div class="overlay overlay-bg"></div>
+			<div class="container">				
+				<div class="row d-flex align-items-center justify-content-center">
+					<div class="about-content col-lg-12">
+						<h1 class="text-white">
+							Restaurant List				
+						</h1>	
+						<p class="text-white link-nav"><a href="{{url_for('index')}}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="{{url_for('showRestaurants')}}"> Restaurant List</a></p>
+					
+					</div>	
+				</div>
+			</div>
+	</section>
+	<!-- End banner Area -->
+{% endblock %}
+
+
+{% block content %}	
+			<!-- Start menu-area Area -->
+            <section class="menu-area section-gap" id="menu">
+                <div class="container">
+					<div class="row d-flex justify-content-center">
+						<div class="menu-content pb-70 col-lg-8">
+							<div class="title text-center">
+								<h1 class="mb-10">What kind of Foods we serve for you</h1>
+								<p>Who are in extremely love with eco friendly system.</p>
+							</div>
+						</div>
+                    </div>	
+                    
+                    <ul class="filter-wrap filters col-lg-12 no-padding">
+                        <li class="active" data-filter="*">All Restaurant</li>
+                        <li data-filter=".breakfast">For Breakfast</li>
+                        <li data-filter=".lunch">For Lunch</li>
+                        <li data-filter=".dinner">For Dinner</li>
+                        <li data-filter=".budget-meal">For Budget Meal</li>
+                        <li data-filter=".buffet">For Buffet</li>
+                    </ul>     
+
+                    <div class="filters-content">
+                        <div class="row">
+								<div class="col-md-5 all breakfast">
+									<div class="single-menu">
+										<div class="title-wrap d-flex justify-content-between">
+											<h4></h4>
+										</div>			
+										<p>
+											
+										</p>
+										
+										
+										<div>
+											<span class="fa fa-star checked"></span>
+											<span class="fa fa-star checked"></span>
+											<span class="fa fa-star checked"></span>
+											<span class="fa fa-star checked"></span>
+											<span class="fa fa-star checked"></span>
+											<span class="fa fa-star checked"></span>
+											<span class="fa fa-star"></span>
+											<span class="fa fa-star"></span>
+											<span class="fa fa-star"></span>
+											<span class="fa fa-star"></span>
+												
+										</div>
+										
+										<a class="primary-btn text-uppercase mt-20" href="">View Details</a>
+										<a class="primary-btn text-uppercase mt-20" href="">Edit</a>
+										<a class="primary-btn text-uppercase mt-20" href="">Delete</a>
+										
+									</div>					                               
+								</div>                           
+							                        
+                        </div>
+                    </div>
+                    
+                   
+                </div>
+            </section>
+            <!-- End menu-area Area -->			
+
+{% endblock %}
+
+{% block services %}
+{% endblock %}
