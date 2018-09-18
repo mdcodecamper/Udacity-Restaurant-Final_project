@@ -3,3 +3,20 @@
     color: red;
 
 }
+
+.flashes ul{
+    margin: 0 0;
+    background: green;
+    color: red;
+    list-style-type: none;
+    list-style: none;
+}
+
+.flashes ul{
+    background:green;
+    color: red;
+}
+
+article.flashes{
+    margin-bottom: 1em;
+}

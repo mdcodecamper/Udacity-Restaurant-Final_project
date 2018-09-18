@@ -31,6 +31,21 @@ Show Restaurant
 					<div class="row d-flex justify-content-center">
 						<div class="menu-content pb-70 col-lg-8">
 							<div class="title text-center">
+								<article class="flashes">
+									{% with messages = get_flashed_messages() %}
+										{% if messages %}
+										<ul>
+											{% for message in messages %}
+											<li>
+												{{message}}
+											</li>
+											
+											{% endfor %}
+										</ul>
+										{% endif %}
+									{% endwith %}
+								</article>
+
 								<h1 class="mb-10">What kind of Foods we serve for you</h1>
 								<p>Who are in extremely love with eco friendly system.</p>
 							</div>
@@ -48,16 +63,15 @@ Show Restaurant
 
                     <div class="filters-content">
                         <div class="row">
+							{% for res in restaurants %}
 								<div class="col-md-5 all breakfast">
 									<div class="single-menu">
 										<div class="title-wrap d-flex justify-content-between">
-											<h4></h4>
+											<h4> {{res.name}}</h4>
 										</div>			
 										<p>
-											
+											{{res.location}}
 										</p>
-										
-										
 										<div>
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star checked"></span>
@@ -65,20 +79,16 @@ Show Restaurant
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star checked"></span>
+											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star"></span>
 											<span class="fa fa-star"></span>
-											<span class="fa fa-star"></span>
-											<span class="fa fa-star"></span>
-												
 										</div>
-										
 										<a class="primary-btn text-uppercase mt-20" href="">View Details</a>
 										<a class="primary-btn text-uppercase mt-20" href="">Edit</a>
 										<a class="primary-btn text-uppercase mt-20" href="">Delete</a>
-										
 									</div>					                               
 								</div>                           
-							                        
+							{% endfor %}                      
                         </div>
                     </div>
                     
