@@ -4,7 +4,7 @@
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="img/fav.png">
+    <link rel="shortcut icon" href="{{url_for('static', filename='img/fav.png')}}">
     <!-- Author Meta -->
     <meta name="author" content="colorlib">
     <!-- Meta Description -->
@@ -47,7 +47,7 @@
                   <nav id="nav-menu-container">
                     <ul class="nav-menu">
                       <li><a href="{{url_for('index')}}">Home</a></li>
-                      <li class="menu-has-children"><a href="{{url_for('showRestaurants')}}">Restaurant</a>
+                      <li class="menu-has-children">Restaurant
                         <ul>
                           <li><a href="{{url_for('showRestaurants')}}">Restaurant List</a></li>
                           <li><a href="{{url_for('createRestaurant')}}">Add New Restaurant</a></li>

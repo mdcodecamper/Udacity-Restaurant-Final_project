@@ -35,15 +35,17 @@ Add New Restaurant
 							
 						</div>
 						<div class="col-lg-5 reservation-right">
-								
-							<form class="form-wrap text-center" action="{{url_for('createRestaurant')}}" method="POST">
+						
+							<form class="form-wrap text-center" action="" method="POST">			
+								{{form.hidden_tag()}}						
 								<div id="logo">
 									<a href="{{url_for('index')}}"><img src="{{url_for('static', filename='img/logo.png')}}" alt="" title="" /></a>
 								</div>
 
 								<h3>Create Restaurant</h3>
-								<input type="text" class="form-control" name="name" placeholder="Restaurant Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Restaurant Name'" >
-								<input type="text" class="form-control" name="location" placeholder="Location" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Location'" >
+								<input type="text" class="form-control" name="name" placeholder="Restaurant Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Restaurant Name'" required>
+								<input type="text" class="form-control" name="location" placeholder="Location" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Location'" required>
+								<input type="text" class="form-control" name="description" placeholder="Description" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Description'">
 																	
 								<button class="primary-btn text-uppercase mt-20" type="submit">Create</button>
 								<button class="primary-btn text-uppercase mt-20" type="submit">Cancel</button>

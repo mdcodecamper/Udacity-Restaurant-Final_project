@@ -7,14 +7,14 @@
 .flashes ul{
     margin: 0 0;
     background: green;
-    color: red;
+    color: black;
     list-style-type: none;
     list-style: none;
 }
 
 .flashes ul{
     background:green;
-    color: red;
+    color: black;
 }
 
 article.flashes{
