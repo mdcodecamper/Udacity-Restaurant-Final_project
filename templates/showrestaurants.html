@@ -52,19 +52,10 @@ Show Restaurant
 						</div>
                     </div>	
                     
-                    <ul class="filter-wrap filters col-lg-12 no-padding">
-                        <li class="active" data-filter="*">All Restaurant</li>
-                        <li data-filter=".breakfast">For Breakfast</li>
-                        <li data-filter=".lunch">For Lunch</li>
-                        <li data-filter=".dinner">For Dinner</li>
-                        <li data-filter=".budget-meal">For Budget Meal</li>
-                        <li data-filter=".buffet">For Buffet</li>
-                    </ul>     
-
                     <div class="filters-content">
                         <div class="row">
 							{% for res in restaurants %}
-								<div class="col-md-5 all breakfast">
+								<div class="col-md-4 all breakfast">
 									<div class="single-menu">
 										<div class="title-wrap d-flex justify-content-between">
 											<h4> {{res.name}}</h4>
@@ -84,8 +75,6 @@ Show Restaurant
 											<span class="fa fa-star"></span>
 										</div>
 										<a class="primary-btn text-uppercase mt-20" href="{{ url_for('viewRestaurantDetails', restaurant_id=res.id) }}">View Details</a>
-										<a class="primary-btn text-uppercase mt-20" href="">Edit</a>
-										<a class="primary-btn text-uppercase mt-20" href="">Delete</a>
 									</div>					                               
 								</div>                           
 							{% endfor %}                      

@@ -102,7 +102,37 @@ def createRestaurant():
 
     return render_template('createrestaurant.html', form=form)
 
+@app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
+def editRestaurant(restaurant_id):
+    session = DBSession()
+    form = RestaurantForm()
+    editedrestaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    if form.validate_on_submit():
+        editedrestaurant.name = form.name.data
+        editedrestaurant.location = form.location.data
+        editedrestaurant.description = form.description.data
+        session.add(editedrestaurant)
+        session.commit()
+        session.close()
+        flash("Restaurant Edited Successfully!!! ")
+        return redirect(url_for('showRestaurants'))
 
+    return render_template('editrestaurant.html', restaurant_id=restaurant_id, item=editedrestaurant, form=form)
+
+
+@app.route('/restaurant/<int:restaurant_id>/delete')
+def deleteRestaurant(restaurant_id):
+    session = DBSession()
+    form = RestaurantForm()
+    restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    if form.validate_on_submit():
+        session.add(restaurantToDelete)
+        session.commit()
+        session.close()
+        flash("Restaurant Deleted Successfully!!! ")
+        return redirect(url_for('showRestaurants'))
+
+    return render_template('deleterestaurant.html', item = restaurantToDelete, form=form)
 
 session.close()
 
@@ -111,3 +141,5 @@ if __name__ =="__main__":
     app.run(host=os.getenv('IP', '0.0.0.0'), 
             port=int(os.getenv('PORT', 4444)))  
     app.run(debug=True)
+
+# set FLASK_ENV=development  -- windows

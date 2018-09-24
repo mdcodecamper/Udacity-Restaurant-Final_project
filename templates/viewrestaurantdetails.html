@@ -28,46 +28,96 @@ View Restaurant Details
 <!-- Start menu-area Area -->
 <section class="menu-area section-gap" id="menu">
 		<div class="container">
-			<div class="row d-flex justify-content-center">
-				<div class="menu-content pb-70 col-lg-8">
-					<div class="title text-center">
-						<h1>{{restaurant.name}}</h1>
-						<h3 class="mb-10">What kind of Foods we serve for you</h1>
-						<p>Who are in extremely love with eco friendly system.</p>
-					</div>
-				</div>
-			</div>	
-
-			<ul class="filter-wrap filters col-lg-12 no-padding">
-				<li class="active" data-filter="*">All Menu</li>
-				<li data-filter=".breakfast">Breakfast</li>
-				<li data-filter=".lunch">Lunch</li>
-				<li data-filter=".dinner">Dinner</li>
-				<li data-filter=".budget-meal">Budget Meal</li>
-				<li data-filter=".buffet">Buffet</li>
-			</ul>
+			<div class="jumbotron">
+				<h1 class="display-4">{{restaurant.name}}</h1>
+			</div>
 			
+		<!-- Start flash message Area -->
+			<div class="title text-center">
+					<article class="flashes">
+						{% with messages = get_flashed_messages() %}
+							{% if messages %}
+							<ul>
+								{% for message in messages %}
+								<li>
+									{{message}}
+								</li>
+								
+								{% endfor %}
+							</ul>
+							{% endif %}
+						{% endwith %}
+					</article>
+				</div>
+		<!-- End flash message Area -->
+
+			<!-- Start Button Area -->
+			  <p class="lead">
+				<a class="btn btn-outline-danger btn-lg" href="{{url_for('editRestaurant', restaurant_id=restaurant.id)}}" role="button"><i class="fa fa-pencil"></i> Edit Restaurant</a>
+				<a class="btn btn-outline-danger btn-lg" href="#" role="button"><i class="fa fa-glass"></i> Add Menu Item</a>
+				<a class="btn btn-outline-danger btn-lg" href="#" role="button"><i class="fa fa-user"></i> Add Menu Admin</a>
+				<a class="btn btn-outline-danger btn-lg" href="{{url_for('deleteRestaurant', restaurant_id=restaurant.id)}}" role="button"><i class="fa fa-trash"></i> Delete Restaurant</a>
+			  </p>
+			<!-- End Button Area -->
+
+			<!-- Start Menu Area -->
 			<div class="filters-content">
+
+					<ul class="filter-wrap filters col-lg-12 no-padding">
+							<li class="active" data-filter="*">All &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     </li>
+							<li data-filter=".appetizer">Appetizers</li>
+							<li data-filter=".entree">Entrees</li>
+							<li data-filter=".dessert">Desserts</li>
+						</ul>    
+
 				<div class="row grid">
-					{% for i in menus %}	
-						<div class="col-md-6 all breakfast">
-							<div class="single-menu">
-								<div class="title-wrap d-flex justify-content-between">
-									<h4>{{ i.name }}</h4>
-									<h4 class="price">${{ i.price }}</h4>
-								</div>			
-								<p>
-									{{ i.description }}
-								</p>
-								<p>
-										{{ i.category }}
-								</p>									
-							</div>					                               
-						</div>                           
-					
+					<hr class="my-4">
+
+					{% for i in menus %}
+						{% if i.category == 'Appetizer' %}
+							<div class="col-md-4 all appetizer">
+								<div class="single-menu">
+									<div class="title-wrap d-flex justify-content-between">
+										<h4>{{ i.name }}</h4>
+										<h4 class="price">${{ i.price }}</h4>
+									</div>			
+									<p>
+										{{ i.description }}
+									</p>
+																		
+								</div>					                               
+							</div>                           
+						{% elif i.category == 'Entree' %}
+							<div class="col-md-4 all entree">
+								<div class="single-menu">
+									<div class="title-wrap d-flex justify-content-between">
+										<h4>{{ i.name }}</h4>
+										<h4 class="price">${{ i.price }}</h4>
+									</div>			
+									<p>
+										{{ i.description }}
+									</p>
+																		
+								</div>					                               
+							</div>    
+						{% elif i.category == 'Dessert' %}
+							<div class="col-md-4 all dessert">
+									<div class="single-menu">
+										<div class="title-wrap d-flex justify-content-between">
+											<h4>{{ i.name }}</h4>
+											<h4 class="price">${{ i.price }}</h4>
+										</div>			
+										<p>
+											{{ i.description }}
+										</p>
+																			
+									</div>					                               
+								</div> 
+						{% endif %}   	
 					{% endfor %}
 				   
 			</div>
+			<!-- End Menu Area -->
 			
 		</div>
 	</section>

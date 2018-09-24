@@ -1,0 +1,65 @@
+{% extends "base_others.html" %}	
+
+{% block title %}
+Edit Restaurant
+{% endblock %}
+
+{% block banner %}
+	<!-- start banner Area -->
+	<section class="about-banner relative">
+			<div class="overlay overlay-bg"></div>
+			<div class="container">				
+				<div class="row d-flex align-items-center justify-content-center">
+					<div class="about-content col-lg-12">
+						<h1 class="text-white">
+							Edit Restaurant				
+						</h1>	
+						<p class="text-white link-nav"><a href="{{url_for('index')}}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="{{url_for('editRestaurant', restaurant_id=restaurant_id )}}"> Edit Restaurant</a></p>
+					
+					</div>	
+				</div>
+			</div>
+	</section>
+	<!-- End banner Area -->
+{% endblock %}
+			
+									
+{% block content %}
+			<!-- Start Edit Restaurant Area -->
+			<section class="reservation-area section-gap relative">
+				<div class="overlay overlay-bg"></div>
+				<div class="container">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-lg-6 reservation-left">
+							<h1 class="text-white">Edit Restaurant</h1>
+							
+						</div>
+						<div class="col-lg-5 reservation-right">
+						
+							<form class="form-wrap text-center" action="" method="POST">			
+								{{form.hidden_tag()}}						
+								<div id="logo">
+									<a href="{{url_for('index')}}"><img src="{{url_for('static', filename='img/logo.png')}}" alt="" title="" /></a>
+								</div>
+
+								<h3>Edit Restaurant</h3>
+								<input type="text" class="form-control" name="name" placeholder="{{item.name}}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{item.name}}'" >
+								<input type="text" class="form-control" name="location" placeholder="{{item.location}}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{item.location}}'" >
+								<input type="text" class="form-control" name="description" placeholder="{{item.description}}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{item.description}}'">
+																	
+								<a class="primary-btn text-uppercase mt-20" role="button">Edit</a>
+								<a class="primary-btn text-uppercase mt-20" role="button" href="{{ url_for('viewRestaurantDetails', restaurant_id=item.id) }}">Cancel</a>
+							</form>
+						</div>
+					</div>
+				</div>	
+			</section>
+			<!-- End Edit Restaurant Area -->				
+{% endblock %}
+
+{% block services %}
+{% endblock %}
+
+{% block review %}
+{% endblock %}
+			
