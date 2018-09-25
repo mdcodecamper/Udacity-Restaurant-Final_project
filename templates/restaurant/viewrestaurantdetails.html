@@ -54,7 +54,7 @@ View Restaurant Details
 			<!-- Start Button Area -->
 			  <p class="lead">
 				<a class="btn btn-outline-danger btn-lg" href="{{url_for('editRestaurant', restaurant_id=restaurant.id)}}" role="button"><i class="fa fa-pencil"></i> Edit Restaurant</a>
-				<a class="btn btn-outline-danger btn-lg" href="#" role="button"><i class="fa fa-glass"></i> Add Menu Item</a>
+				<a class="btn btn-outline-danger btn-lg" href="{{url_for('createMenuItem', restaurant_id=restaurant.id)}}" role="button"><i class="fa fa-glass"></i> Add Menu Item</a>
 				<a class="btn btn-outline-danger btn-lg" href="#" role="button"><i class="fa fa-user"></i> Add Menu Admin</a>
 				<a class="btn btn-outline-danger btn-lg" href="{{url_for('deleteRestaurant', restaurant_id=restaurant.id)}}" role="button"><i class="fa fa-trash"></i> Delete Restaurant</a>
 			  </p>

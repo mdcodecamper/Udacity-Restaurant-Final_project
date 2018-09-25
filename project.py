@@ -7,7 +7,7 @@ import os
 from random import randint
 
 import logging
-from forms import RestaurantForm
+from forms import RestaurantForm, MenuItemForm
 
 import models
 
@@ -64,7 +64,7 @@ def showRestaurants():
     session = DBSession()
     restaurants = session.query(Restaurant).all()
     session.close()
-    return render_template('showrestaurants.html', restaurants = restaurants)
+    return render_template('restaurant/showrestaurants.html', restaurants = restaurants)
 
 
 @app.route('/restaurants/JSON')
@@ -81,7 +81,7 @@ def viewRestaurantDetails(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     menuItems = session.query(Menu).filter_by(restaurant_id = restaurant.id).all()
     session.close()
-    return render_template('viewrestaurantdetails.html', restaurant=restaurant, menus = menuItems)
+    return render_template('restaurant/viewrestaurantdetails.html', restaurant=restaurant, menus = menuItems)
 
 
 
@@ -100,7 +100,7 @@ def createRestaurant():
         flash("Added '{}'".format(name))
         return redirect(url_for('showRestaurants'))
 
-    return render_template('createrestaurant.html', form=form)
+    return render_template('restaurant/createrestaurant.html', form=form)
 
 @app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
@@ -117,7 +117,7 @@ def editRestaurant(restaurant_id):
         flash("Restaurant Edited Successfully!!! ")
         return redirect(url_for('showRestaurants'))
 
-    return render_template('editrestaurant.html', restaurant_id=restaurant_id, item=editedrestaurant, form=form)
+    return render_template('restaurant/editrestaurant.html', restaurant_id=restaurant_id, item=editedrestaurant, form=form)
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete')
@@ -132,7 +132,33 @@ def deleteRestaurant(restaurant_id):
         flash("Restaurant Deleted Successfully!!! ")
         return redirect(url_for('showRestaurants'))
 
-    return render_template('deleterestaurant.html', item = restaurantToDelete, form=form)
+    return render_template('restaurant/deleterestaurant.html', item = restaurantToDelete, form=form)
+
+
+# ===============================  Menu Item ================================= #
+
+@app.route('/restaurant/<int:restaurant_id>/new', methods=['GET', 'POST'])
+def createMenuItem(restaurant_id):
+    session = DBSession()
+    form = MenuItemForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        course = form.course.data
+        category = form.category.data
+        price = form.price.data
+        description = form.description.data
+        menuItem = models.Menu(name=name, course =course, category=category, description = description, price= price, restaurant_id=restaurant_id)
+        session.add(menuItem)
+        session.commit()
+        session.close()
+        flash("Added {} ".format(name))
+        return redirect(url_for('viewRestaurantDetails'))
+
+    return render_template('menu/createmenu.html', form=form)
+
+
+
+
 
 session.close()
 
