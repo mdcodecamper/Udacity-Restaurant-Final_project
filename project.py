@@ -108,29 +108,32 @@ def editRestaurant(restaurant_id):
     form = RestaurantForm()
     editedrestaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     if form.validate_on_submit():
-        editedrestaurant.name = form.name.data
-        editedrestaurant.location = form.location.data
-        editedrestaurant.description = form.description.data
+        if request.form['name']:
+            editedrestaurant.name = form.name.data
+        if request.form['location']:
+            editedrestaurant.location = form.location.data
+        if request.form['description']:
+            editedrestaurant.description = form.description.data
         session.add(editedrestaurant)
         session.commit()
         session.close()
         flash("Restaurant Edited Successfully!!! ")
-        return redirect(url_for('showRestaurants'))
+        return redirect(url_for('showRestaurants', restaurant_id=restaurant_id))
 
     return render_template('restaurant/editrestaurant.html', restaurant_id=restaurant_id, item=editedrestaurant, form=form)
 
 
-@app.route('/restaurant/<int:restaurant_id>/delete')
+@app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
     session = DBSession()
     form = RestaurantForm()
     restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
     if form.validate_on_submit():
-        session.add(restaurantToDelete)
+        session.delete(restaurantToDelete)
         session.commit()
         session.close()
         flash("Restaurant Deleted Successfully!!! ")
-        return redirect(url_for('showRestaurants'))
+        return redirect(url_for('showRestaurants', restaurant_id=restaurant_id))
 
     return render_template('restaurant/deleterestaurant.html', item = restaurantToDelete, form=form)
 
@@ -152,12 +155,50 @@ def createMenuItem(restaurant_id):
         session.commit()
         session.close()
         flash("Added {} ".format(name))
-        return redirect(url_for('viewRestaurantDetails'))
+        return redirect(url_for('viewRestaurantDetails', restaurant_id = restaurant_id))
 
     return render_template('menu/createmenu.html', form=form)
 
 
+@app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/edit', methods=['GET', 'POST'])
+def editMenuItem(restaurant_id, menu_id):
+    session = DBSession()
+    form = MenuItemForm()
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    editedMenu = session.query(Menu).filter_by(id=menu_id).one()
+    if form.validate_on_submit():
+        if request.form['name']:
+            editedMenu.name = form.name.data
+        if request.form['course']:
+            editedMenu.course = form.course.data
+        if request.form['category']:
+            editedMenu.category = form.category.data
+        if request.form['price']:
+            editedMenu.price = form.price.data
+        if request.form['description']:
+            editedMenu.description = form.description.data
+        session.add(editedMenu)
+        session.commit()
+        session.close()
+        flash("Menu Item Successfully Edited")
+        return redirect(url_for('viewRestaurantDetails', restaurant_id = restaurant_id))
 
+    return render_template('menu/editmenu.html', restaurant_id = restaurant_id, menu_id=menu_id, item=editedMenu, form=form)
+
+
+@app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/delete', methods=['GET', 'POST'])
+def deleteMenuItem(restaurant_id, menu_id):
+    session = DBSession()
+    form = MenuItemForm()
+    menuItemToDelete = session.query(Menu).filter_by(id=menu_id).one()
+    if form.validate_on_submit():
+        session.delete(menuItemToDelete)
+        session.commit()
+        session.close()
+        flash("Menu Item Deleted Successfully!!! ")
+        return redirect(url_for('viewRestaurantDetails', restaurant_id=restaurant_id))
+    
+    return render_template('menu/deletemenu.html', item = menuItemToDelete, form=form)
 
 
 session.close()

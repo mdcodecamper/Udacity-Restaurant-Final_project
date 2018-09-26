@@ -1,7 +1,7 @@
 {% extends "base_others.html" %}	
 
 {% block title %}
-Delete Restaurant
+Delete Menu Item
 {% endblock %}
 
 {% block banner %}
@@ -12,9 +12,9 @@ Delete Restaurant
 				<div class="row d-flex align-items-center justify-content-center">
 					<div class="about-content col-lg-12">
 						<h1 class="text-white">
-							Delete Restaurant				
+							Delete Menu Item				
 						</h1>	
-						<p class="text-white link-nav"><a href="{{url_for('index')}}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="{{url_for('deleteRestaurant', restaurant_id=item.id )}}"> Delete Restaurant</a></p>
+						<p class="text-white link-nav"><a href="{{url_for('index')}}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="{{url_for('deleteMenuItem', restaurant_id=item.id )}}"> Delete Menu Item</a></p>
 					
 					</div>	
 				</div>
@@ -38,6 +38,23 @@ Delete Restaurant
 								</form>
 						</div>
 						
+
+
+			<!-- <section class="reservation-area section-gap relative">
+					<div class="overlay overlay-bg"></div>
+					<div class="container">
+						<div class="row justify-content-between align-items-center">
+								<div class="about-content col-lg-12">
+										<h1>Are you sure you want to delete {{item.name}}?</h1>
+										<form action="{{ url_for('deleteRestaurant', restaurant_id = item.id) }}" method="post"></form>
+											<input type="submit" value="Delete">&nbsp; &nbsp; &nbsp;
+	
+											<a href= "{{url_for('viewRestaurantDetails', restaurant_id= item.id)}}">Cancel</a>
+										</form>
+								</div>
+						</div>
+					</div>	
+			</section> -->
 			<!-- End Delete Restaurant Area -->								
 {% endblock %}
 
