@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect, flash, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
-from models import Base, Restaurant, Menu
+from models import Base, Restaurant, Menu, User
 
 import os
 from random import randint
@@ -20,41 +20,24 @@ app.config['SECRET_KEY'] = "super secret key"
 
 engine = create_engine('sqlite:///marcorestaurant.db', echo=True)
 Base.metadata.bind = engine
- 
+
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
-
-menu = [
-    {'id':1, 'name': 'Chicken Tikka Masala', 'price': '10.99', 'description': 'Tender pieces of boneless marinated chicken roasted in a clay oven & cooked in a creamy tomato gravy', 'restaurant_id':2},
-    {'id':2, 'name': 'Chicken Biriyani', 'price': '11.99', 'description': 'Basmati rice cooked with chicken and flavored with cardamom, saffron and Indian herb','restaurant_id':1},
-    {'id':3, 'name': 'Beef Biriyani', 'price': '11.99', 'description': 'Succulent pieces of beef cooked with basmati rice over a low fire with exotic Indian herbs and spice', 'restaurant_id':2},
-    {'id':4, 'name': 'Goat Biriyani', 'price': '15.99', 'description': 'Tender pieces of goat cooked with basmati rice over a low fire with exotic Indian herbs and spice','restaurant_id':1},
-    {'id':5, 'name': 'Mughlai Vegetable Biryani', 'price': '11.99', 'description': 'Basmati rice cooked with seasonal vegetables and flavored with saffron and spice', 'restaurant_id':2}
-
-]
-
-# def store_restaurants(rest_id, name, location):
-#     restaurants.append(dict(
-#         id=rest_id,
-#         name = name,
-#         location = location
-#         )
-#     )
-
-
-# def find_No_duplicate(rest_id, restaurants):
-#     for rest in restaurants:
-#         if id == rest_id:
-#             return False
-#         else:
-#             return True
-    
-
 
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html')
+
+
+# ===============================  User ================================= #
+
+@app.route('/users/')
+def showUsers():
+    session = DBSession()
+    users = session.query(User).all()
+    session.close()
+    return render_template('user/showusers.html', users = users)
 
 
 # ===============================  Restaurant ================================= #
@@ -197,7 +180,7 @@ def deleteMenuItem(restaurant_id, menu_id):
         session.close()
         flash("Menu Item Deleted Successfully!!! ")
         return redirect(url_for('viewRestaurantDetails', restaurant_id=restaurant_id))
-    
+
     return render_template('menu/deletemenu.html', item = menuItemToDelete, form=form)
 
 
@@ -205,8 +188,8 @@ session.close()
 
 
 if __name__ =="__main__":
-    app.run(host=os.getenv('IP', '0.0.0.0'), 
-            port=int(os.getenv('PORT', 4444)))  
+    app.run(host=os.getenv('IP', '0.0.0.0'),
+            port=int(os.getenv('PORT', 4444)))
     app.run(debug=True)
 
 # set FLASK_ENV=development  -- windows
